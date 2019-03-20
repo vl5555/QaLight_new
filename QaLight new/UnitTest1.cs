@@ -16,7 +16,7 @@ namespace QaLight_new
         {
             driver = new ChromeDriver();
             driver.Manage().Window.Maximize();
-            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
+            SetImplicitWait(driver, 10);
             driver.Navigate().GoToUrl("http://old.qalight.com.ua/zapisatsya-na-kursy.html");
         }
 
@@ -85,18 +85,23 @@ namespace QaLight_new
                $"Element {nameof (oldQaLightPage.errorRegistrationPopUp)} is not present on the page");   
         }
 
+        public void SetImplicitWait(IWebDriver driver, int timeout)
+        {
+            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(timeout);
+        }
+
         public bool IsElementPresent(IWebElement element )
         {
-            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(2);
+            SetImplicitWait(driver, 2);
             try
             {
                 var result = element.Displayed;
-                driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
+                SetImplicitWait(driver, 10);
                 return true;
             }
             catch (NoSuchElementException)
             {
-                driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
+                SetImplicitWait(driver, 10);
                 return false;
             }
             throw new Exception("Unexpected exception.");
