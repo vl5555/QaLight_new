@@ -5,7 +5,7 @@ using System;
 using System.Threading;
 using OpenQA.Selenium.Support.UI;
 
-namespace QaLight
+namespace QaLight_new
 {
     public class UnitTest1
     {
@@ -64,7 +64,42 @@ namespace QaLight
 
             Assert.True(IsElementPresent(driver, expectedElementLocator),
                 $"Element with locator {expectedElementLocator} is not present on the page");
+        }
 
+        [Category("Smoke")]
+        [Test]
+        public void SmokeTestWithPageObject_Negative()
+        {
+            OldQaLightPage oldQaLightPage = new OldQaLightPage(driver);
+            var course = oldQaLightPage.course ;
+
+            SelectElement courseDropdown = new SelectElement(course);
+            courseDropdown.SelectByIndex(3);
+
+            oldQaLightPage.surnameField.SendKeys("dafdafa");
+            oldQaLightPage.nameField.SendKeys("dfafda");
+
+            oldQaLightPage.submit.Click();
+
+            Assert.True(IsElementPresent(oldQaLightPage.errorRegistrationPopUp),
+               $"Element {nameof (oldQaLightPage.errorRegistrationPopUp)} is not present on the page");   
+        }
+
+        public bool IsElementPresent(IWebElement element )
+        {
+            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(2);
+            try
+            {
+                var result = element.Displayed;
+                driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
+                return true;
+            }
+            catch (NoSuchElementException)
+            {
+                driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
+                return false;
+            }
+            throw new Exception("Unexpected exception.");
         }
 
         public bool IsElementPresent(IWebDriver driver, string cssSelector)
