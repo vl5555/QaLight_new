@@ -85,6 +85,8 @@ namespace QaLight_new
                $"Element {nameof (oldQaLightPage.errorRegistrationPopUp)} is not present on the page");   
         }
 
+
+
         public void SetImplicitWait(IWebDriver driver, int timeout)
         {
             driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(timeout);
