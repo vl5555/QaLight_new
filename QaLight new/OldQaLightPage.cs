@@ -1,5 +1,6 @@
 ﻿using OpenQA.Selenium;
 using SeleniumExtras.PageObjects;
+using System.Collections.Generic;
 
 namespace QaLight_new
 {
@@ -14,7 +15,7 @@ namespace QaLight_new
         }
 
         [FindsBy(How = How.CssSelector, Using = "[name = '_7c8289bf6b8e80c1749ef54ab01b92b8']")]
-        public IWebElement course;
+        public List<IWebElement> course;
         //IWebElement course = driver.FindElement(By.CssSelector("[name = '_7c8289bf6b8e80c1749ef54ab01b92b8']"));
 
         //[FindsBy(How = How.Id, Using = "z_sender0")]
