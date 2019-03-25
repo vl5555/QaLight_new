@@ -17,11 +17,20 @@ namespace QaLight_new
         public IWebElement course;
         //IWebElement course = driver.FindElement(By.CssSelector("[name = '_7c8289bf6b8e80c1749ef54ab01b92b8']"));
 
-        [FindsBy(How = How.Id, Using = "z_sender0")]
+        //[FindsBy(How = How.Id, Using = "z_sender0")]
         public IWebElement surnameField;
 
-        [FindsBy(How = How.Id, Using = "z_text1")]
-        public IWebElement nameField;
+        public void SetTextIntoSurnameField(string text)
+        {
+            driver.FindElement(By.Id("z_sender0")).SendKeys(text);
+        }
+
+        //[FindsBy(How = How.Id, Using = "z_text1")]
+        public IWebElement NameField
+        {
+            get {return driver.FindElement(By.Id("z_text1")); }
+            //private set;
+        }
 
         [FindsBy(How = How.CssSelector, Using = ("[type = submit]"))]
         public IWebElement submit;
